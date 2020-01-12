@@ -8,7 +8,7 @@ Images/
 LatexImg/
 
 #Files extension to ignore
-
+*.html
 *.pdf
 *.aux
 *.log
