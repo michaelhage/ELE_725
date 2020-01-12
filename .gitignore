@@ -3,7 +3,6 @@ Photos/
 Tutorial/
 .ipynb_checkpoints/
 __pycache__/
-venv/
 Images/
 .idea/
 LatexImg/
@@ -13,10 +12,6 @@ LatexImg/
 *.pdf
 *.aux
 *.log
-*.jpg
-*.tif
-*.png
-*.wav
 *.xml
 *.iml
 *.gz
