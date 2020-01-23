@@ -1,0 +1,34 @@
+function downsample(inFile, outFile, N, pf)
+%DOWNSAMPLE Summary of this function goes here
+%   Detailed explanation goes here
+    
+    [aud, fs] = audioread(inFile);
+    
+    if(pf == true)
+        aud_down = decimate(aud, N, 2);
+    else
+        aud_down = decimate(aud, N);
+    end
+        
+    sound(aud_down, fs/N)
+    
+    audiowrite(outFile, aud_down, fs/N);
+    
+    Aud = fft(aud);
+    Aud_Down = fft(aud_down);
+    
+    plotx = {Aud, };
+    str = {};
+
+    figure
+    for i = 1:length(plotx)
+        subplot(1,legnth(plotx),i);
+        stem(plotx{i});
+        title(str{i});
+        xlabel('Frequency');
+%         ylabel('');
+    end
+    
+
+end
+
