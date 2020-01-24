@@ -3,11 +3,16 @@ function downsample(inFile, outFile, N, pf)
 %   Detailed explanation goes here
     
     [aud, fs] = audioread(inFile);
+    [X,Y] = size(aud);
+    
+    aud_down = zeros(int16(X./N),Y);
     
     if(pf == true)
-        aud_down = decimate(aud, N, 2);
+        aud_down(:,1) = decimate(aud(:,1), N, 2);
+        aud_down(:,2) = decimate(aud(:,2), N, 2);
     else
-        aud_down = decimate(aud, N);
+        aud_down(:,1) = decimate(aud(:,1), N);
+        aud_down(:,2) = decimate(aud(:,2), N);
     end
     
     sound(aud,fs)
@@ -26,11 +31,15 @@ function downsample(inFile, outFile, N, pf)
 
     figure
     for i = 1:length(plotx)
-        subplot(1,length(plotx),i);
-        stem(plotx{i});
+        subplot(2,length(plotx),i);
+        spectrogram(fftshift(plotx{i}));
         title(str{i});
         xlabel('Frequency');
-%         ylabel('');
+        
+        subplot(2,length(plotx),i+3)
+        plot(fftshift(plotx{i}));
+        title(str{i});
+        xlabel('Frequency');
     end
     
 
