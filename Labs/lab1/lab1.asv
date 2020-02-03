@@ -38,5 +38,4 @@ outFile = "output_quant.wav";
 
 MSE = UniformQuant(audFile,outFile,N);
 
-%% Mu-Law Qunatization
-
+%% Mu 
