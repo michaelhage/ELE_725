@@ -1,4 +1,4 @@
-function [MSE] = UniformQuant(inFile, outFile, N)
+function [MSE, quant_sig] = UniformQuant(inFile, outFile, N)
 %QUNA Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -35,23 +35,7 @@ function [MSE] = UniformQuant(inFile, outFile, N)
 %    Plotting 
     str = ["Original Audio(1)","Quantized Signal(1)"; 
         "Original Audio(2)", "Quantized Signal(2)"];
-
-    
-    for i = 1:Y
-        figure
-        
-        subplot(1,2,1);
-        plot(aud(:,i));
-        title(str{i,1});
-        xlabel('Time');
-        
-        subplot(1,2,2)
-        plot(quant_sig(:,i));
-        title(str{i,2});
-        xlabel('Time');
-    end
     
 %     Output Audio
-    audiowrite(outFile, aud_quant, fs);
+    audiowrite(outFile, quant_sig, fs);
 end
-

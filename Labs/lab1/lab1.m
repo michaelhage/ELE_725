@@ -1,8 +1,11 @@
+close all
+clear
 %% Section 1 Audio File Properties
 audFile = "ELE725_lab1.wav";
 
 aud = audioread(audFile);
 info = audioinfo(audFile);
+[X,Y] = size(aud);
 
 player = audioplayer(aud, fs);
 
@@ -30,13 +33,66 @@ downsample(audFile, outFile, N, 0);
 %% Uniform Quantization
 
 % Bit-Rate
-N=8;
+N=4;
 
 % Files
 audFile = "ELE725_lab1.wav";
 outFile = "output_quant.wav";
 
-MSE = UniformQuant(audFile,outFile,N);
+[MSE_U,uni_sig] = UniformQuant(audFile,outFile,N);
+
+%    Plotting 
+str = ["Original Audio(1)","Quantized Signal(1)";
+    "Original Audio(2)", "Quantized Signal(2)"];
+
+
+for i = 1:Y
+    figure
+    
+    subplot(1,2,1);
+    plot(aud(:,i));
+    title(str{i,1});
+    xlabel('Time');
+    
+    subplot(1,2,2)
+    plot(uni_sig(:,i));
+    title(str{i,2});
+    xlabel('Time');
+end
 
 %% Mu-Law Qunatization
 
+N=8;
+Mu=100;
+
+% Files
+audFile = "ELE725_lab1.wav";
+outFile = "output_mu.wav";
+
+[MSE_M, mu_sig] = MulawQuant(audFile, outFile, N, Mu);
+
+str = ["Original Audio(1)","Quantized Signal(1)"; 
+        "Original Audio(2)", "Quantized Signal(2)"];
+
+    for i = 1:2
+        figure
+        
+        subplot(1,2,1);
+        plot(aud(:,i));
+        title(str{i,1});
+        xlabel('Time');
+        
+        subplot(1,2,2)
+        plot(mu_sig(:,i));
+        title(str{i,2});
+        xlabel('Time');
+    end
+
+%% Comparisons
+
+figure
+hold on
+plot(aud(100:300), 'g');
+plot(uni_sig(100:300),'--.r');
+plot(mu_sig(100:300),'--.b')
+hold off
