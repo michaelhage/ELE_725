@@ -16,4 +16,7 @@ LatexImg/
 *.iml
 *.gz
 *.log
-
+*.wav
+*.mp3
+*.png
+*.jpg
