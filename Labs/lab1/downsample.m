@@ -5,7 +5,7 @@ function downsample(inFile, outFile, N, pf)
     [aud, fs] = audioread(inFile);
     [X,Y] = size(aud);
     
-    aud_down = zeros(int16(X./N),Y);
+    aud_down = zeros(round(X./N),Y);
     
     if(pf == true)
         aud_down(:,1) = decimate(aud(:,1), N, 2);
@@ -42,19 +42,19 @@ function downsample(inFile, outFile, N, pf)
         'Reconstructed Audio(1)', 'Reconstructed Audio(2)'};
 
     
-    for i = 1:length(plotx)
+    for i = 1:length(plotx)/2
         figure
         
         subplot(1,2,1);
-        spectrogram(fftshift(plotx{i}));
-        title(str{i});
+        plot(fftshift(plotx{2*i - 1}));
+        title(str{2*i - 1});
         xlabel('Frequency');
         
         subplot(1,2,2)
-        stem(fftshift(plotx{i}));
-        title(str{i});
+        plot(fftshift(plotx{2*i}));
+        title(str{2*i});
         xlabel('Frequency');
     end
     
-    audiowrite(outFile, aud_down, fs/N);
+    audiowrite(outFile, aud_interp, fs);
 end

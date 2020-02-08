@@ -32,10 +32,6 @@ function [MSE, quant_sig] = UniformQuant(inFile, outFile, N)
         MSE(i) = (1/X).*sum( (quant_sig(:,i) - aud(:,i)).^2 );
     end
     
-%    Plotting 
-    str = ["Original Audio(1)","Quantized Signal(1)"; 
-        "Original Audio(2)", "Quantized Signal(2)"];
-    
 %     Output Audio
     audiowrite(outFile, quant_sig, fs);
 end
