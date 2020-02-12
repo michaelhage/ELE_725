@@ -6,13 +6,16 @@ Created on Tue Feb 11 10:48:58 2020
 """
 
 import numpy as np
-import pandas as pd
 
 # Calculate the historgram and the Entropy of a given dataset
 def myEntropy(X):
     
+    arr = X.copy()
+    
+    arr = np.ravel(arr)
+    
     stats = {}
-    for i in X:
+    for i in arr:
         if i in stats:
             stats[i] += 1
         else:
@@ -20,6 +23,8 @@ def myEntropy(X):
         
     values = np.array(list(stats.values())) 
     
-    return stats
-
+    values = values / sum(values)
     
+    entropy = -sum(values * np.log2(values))
+    
+    return [stats,entropy]

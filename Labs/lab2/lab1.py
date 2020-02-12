@@ -22,5 +22,11 @@ def display_multiple_images(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-# Calculating Entropy
+def histogram(dictionary):
+    df = pd.DataFrame.from_dict(dictionary, orient='index')
+    df.plot(kind='bar')
 
+img1 = cv2.imread("MikeySpiece.png", 1)
+img1 = cv2.cvtColor(img, cv2.COLOR_BGR2YCR_CB)
+
+img2 = cv2.imread("bridge.jpg", 0)
