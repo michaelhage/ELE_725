@@ -4,9 +4,10 @@ Created on Tue Feb 11 10:48:58 2020
 
 @author: Michael
 """
-
+import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
+    
 # Calculate the historgram and the Entropy of a given dataset
 def myEntropy(X):
     
