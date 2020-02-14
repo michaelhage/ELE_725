@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import entropy as en
 import display_functions as df
+import huffman
 
 # Colored Image
 img1 = cv2.imread("MikeySpiece.png", 1)
@@ -31,3 +32,7 @@ df.display_image(img2)
 img2_dict, img2_ent = en.myEntropy(img2)
 
 df.histogram(img2_dict)
+
+print("Entropy Channel: "+ str(img2_ent))
+
+# Huffman Encoding

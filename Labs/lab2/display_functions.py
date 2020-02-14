@@ -8,9 +8,6 @@ import matplotlib.pyplot as plt
 import cv2
 
 def histogram(dictionary, spacing = 1):
-    # df = pd.DataFrame.from_dict(dictionary, orient='index')
-    # df.plot(kind='bar')
-
     plt.bar(dictionary.keys(), dictionary.values(), spacing, color='b')
     plt.show()
 
