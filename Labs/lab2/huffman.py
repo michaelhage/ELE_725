@@ -5,6 +5,8 @@ Created on Wed Feb 12 23:09:00 2020
 @author: Michael Hage
 """
 
+import inspect
+
 class Huffman(object):
     # Define a Node
     def __init__(self, left=None, right=None):
@@ -18,7 +20,25 @@ class Huffman(object):
     def get_right(self):
         return self.right
     
-        
+   
+def encode_huffman(node, tree, encode=""):
+    
+    # Left Side, 0
+    if(not isinstance(node.get_left(), Huffman)):
+        # print(encode)
+        tree[node.get_left()] = encode + '0'
+    else:
+        tree = encode_huffman(node.get_left(), tree, encode + '0')
+    
+    # Right Side, 1
+    if(not isinstance(node.get_right(), Huffman)):
+        # print(encode)
+        tree[node.get_right()] = encode + '1'
+    else:
+        tree = encode_huffman(node.get_right(), tree, encode + '1')  
+    
+    return tree
+     
 def create_huffman(dictionary):
     
     dict_list = list()
@@ -46,3 +66,6 @@ def create_huffman(dictionary):
         # Append new node to list and sort its position
         dict_list.append(temp)
         dict_list.sort(key=lambda tup: tup[1])
+    
+    tree = {}
+    tree = encode_huffman(dict_list[0][0], tree)
