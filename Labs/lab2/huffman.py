@@ -5,7 +5,7 @@ Created on Wed Feb 12 23:09:00 2020
 @author: Michael Hage
 """
 
-import inspect
+import copy
 
 class Huffman(object):
     # Define a Node
@@ -21,21 +21,21 @@ class Huffman(object):
         return self.right
     
    
-def encode_huffman(node, tree, encode=""):
+def encode_tree(node, tree, encode=""):
     
     # Left Side, 0
     if(not isinstance(node.get_left(), Huffman)):
         # print(encode)
         tree[node.get_left()] = encode + '0'
     else:
-        tree = encode_huffman(node.get_left(), tree, encode + '0')
+        tree = encode_tree(node.get_left(), tree, encode + '0')
     
     # Right Side, 1
     if(not isinstance(node.get_right(), Huffman)):
         # print(encode)
         tree[node.get_right()] = encode + '1'
     else:
-        tree = encode_huffman(node.get_right(), tree, encode + '1')  
+        tree = encode_tree(node.get_right(), tree, encode + '1')  
     
     return tree
      
@@ -68,4 +68,74 @@ def create_huffman(dictionary):
         dict_list.sort(key=lambda tup: tup[1])
     
     tree = {}
-    tree = encode_huffman(dict_list[0][0], tree)
+    tree = encode_tree(dict_list[0][0], tree)
+    
+    return dict_list[0][0], tree
+
+def encode_huffman_string(tree, string):
+    encode = ""
+    
+    for elm in string:
+        encode += tree[elm]
+    
+    return encode
+
+def decode_huffman_string(node, encode):
+    temp_node = node
+    decode = ""
+    
+    for c in encode:
+        # Left
+        if c == '0':
+            if(isinstance(temp_node.get_left(), Huffman)):
+                temp_node = temp_node.get_left()
+            else:
+                decode += temp_node.get_left()
+                temp_node = node
+        elif c == '1':
+            if(isinstance(temp_node.get_right(), Huffman)):
+                temp_node = temp_node.get_right()
+            else:
+                decode += temp_node.get_right()
+                temp_node = node
+    
+    return decode
+
+def encode_huffman_array(tree, arr):
+    encode = []
+    
+    for i in range(0,len(arr)):
+        temp = ""
+        
+        for j in range(0,len(arr[i])):
+            temp += tree[arr[i,j]]
+        
+        encode.append(temp)
+    
+    return encode
+
+def decode_huffman_array(node, encode):
+    temp_node = node
+    decode = []
+    
+    for i in range(0, len(encode)):
+        temp = []
+        for j in range(0, len(encode[i])):
+            # Left
+            if encode[i][j] == '0':
+                if(isinstance(temp_node.get_left(), Huffman)):
+                    temp_node = temp_node.get_left()
+                else:
+                    temp.append(temp_node.get_left())
+                    temp_node = node
+            elif encode[i][j] == '1':
+                if(isinstance(temp_node.get_right(), Huffman)):
+                    temp_node = temp_node.get_right()
+                else:
+                    temp.append(temp_node.get_right())
+                    # temp_node = copy.deepcopy(node)
+                    temp_node = node
+        
+        decode.append(temp)
+        
+    return decode

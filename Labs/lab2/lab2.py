@@ -36,3 +36,32 @@ df.histogram(img2_dict)
 print("Entropy Channel: "+ str(img2_ent))
 
 # Huffman Encoding
+
+# Sample String
+str1 = "HUFFMAN IS THE BEST COMPRESSION ALGORITHM"
+
+dict_str, en_str = en.myEntropy(str1)
+
+node, tree = huffman.create_huffman(dict_str)
+
+encode = huffman.encode_huffman_string(tree, str1)
+
+decode = huffman.decode_huffman_string(node, encode)
+
+print("Original: " + str1)
+print("Decoded: " + decode)
+
+# Grayscale Image
+img = img2
+
+img_dict, img_ent = en.myEntropy(img)
+
+node, tree = huffman.create_huffman(img_dict)
+
+encode = huffman.encode_huffman_array(tree, img2)
+
+decode = huffman.decode_huffman_array(node, encode)
+decode = np.array(decode, np.uint8)
+
+df.display_image(img, title='Original')
+df.display_image(decode, title='Decoded')
