@@ -5,8 +5,6 @@ Created on Wed Feb 12 23:09:00 2020
 @author: Michael Hage
 """
 
-import copy
-
 class Huffman(object):
     # Define a Node
     def __init__(self, left=None, right=None):
