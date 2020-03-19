@@ -9,6 +9,7 @@ import numpy as np
 import cv2
 import display_functions as df
 import dct_function as dct
+import video_function as vf
 
 img1 = cv2.imread("MikeySpiece_square.png",0)
 img2 = cv2.imread("MikeySpiece.png",0)
@@ -82,10 +83,35 @@ imf_32_idct = cv2.idct(imf_32_dct)
 img_32_idct = np.uint8(imf_32_idct * 255)
 
 
-
 # Andrew i'll leave part 4 to you
 # Just remove values from imf_8_dct to achieve this
 
 # Creating copy of dct to test
 imf_test = imf_8_dct.copy()
 
+# 8 x 8 Block DCT and IDCT
+img = img2.copy()
+
+imf = np.float32(img)
+
+imf_dct = dct.dct_split(imf)
+
+imf_quant = dct.quantization(imf_dct, 4)
+
+img_quant = dct.idct_split(imf_quant)
+
+df.display_multiple_images([img, img_quant])
+
+
+# MSE
+
+# SNR
+
+# PSNR
+
+# Part 2 - Inter-Frame Coding
+
+video = cv2.VideoCapture("stephen.gif")
+f = 2
+
+vid = vf.frame_extract(video, f)
