@@ -5,7 +5,25 @@ Created on Wed Feb 12 09:39:15 2020
 @author: Michael
 """
 import matplotlib.pyplot as plt
+import numpy as np
 import cv2
+
+def hashmap(X):
+    
+    if(not isinstance(X, str)):
+        arr = X.copy()
+        arr = np.ravel(arr)
+    else:
+        arr = X
+    
+    stats = {}
+    for i in arr:
+        if i in stats:
+            stats[i] += 1
+        else:
+            stats[i] = 1
+            
+    return stats
 
 def histogram(dictionary, spacing = 1):
     plt.bar(dictionary.keys(), dictionary.values(), spacing, color='b')
