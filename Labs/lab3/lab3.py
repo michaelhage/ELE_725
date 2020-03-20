@@ -47,9 +47,11 @@ imf_4_idct = cv2.idct(imf_4_dct)
 img_4_idct = np.uint8(imf_4_idct)
 
 # Display Image
-# imf_4_logdct = np.log(abs(imf_4_dct))
+df.display_multiple_images([img_4, img_4_idct])
 
-# img_4_dct = np.uint8(imf_4_dct * 255)
+# Scaling image and then displaying colormap
+img_4_scale = np.log( abs(imf_4_dct) )
+df.colormap(img_4_scale)
 
 
 # 8 x 8 Image
@@ -65,8 +67,11 @@ imf_8_dct = cv2.dct(imf_8)
 imf_8_idct = cv2.idct(imf_8_dct)
 img_8_idct = np.uint8(imf_8_idct * 255)
 
+df.display_multiple_images([img_8, img_8_idct])
 
-# img_8_dct = np.uint8(imf_8_dct * 255)
+# Scaling image and then displaying colormap
+img_8_scale = np.log( abs(imf_8_dct) )
+df.colormap(img_8_scale)
 
 # 32 x 32 Image
 
@@ -77,12 +82,15 @@ imf_32 = np.float32(img_32)/255
 
 imf_32_dct = cv2.dct(imf_32)
 
-# img_32_dct = np.uint8(imf_32_dct * 255)
-
 # Converting back to image array
 imf_32_idct = cv2.idct(imf_32_dct)
 img_32_idct = np.uint8(imf_32_idct * 255)
 
+df.display_multiple_images([img_32, img_32_idct])
+
+# Scaling image and plotting colormap
+img_32_scale = np.log( abs(imf_32_dct) )
+df.colormap(img_32_scale)
 
 # Andrew i'll leave part 4 to you
 # Just remove values from imf_8_dct to achieve this
@@ -102,7 +110,6 @@ imf_quant = dct.quantization(imf_dct, 4)
 img_quant = dct.idct_split(imf_quant)
 
 df.display_multiple_images([img, img_quant])
-
 
 # MSE
 
@@ -146,5 +153,11 @@ for i in range(0, f-1):
     
 # Question 3
 
+
+
 # Question 4
 
+# Selector, choose an integer in the range 1-4
+sel = 2
+
+vid_dpcm = vf.DCPM_encoder(vid, frame_diff, sel)

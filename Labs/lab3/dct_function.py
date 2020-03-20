@@ -81,6 +81,7 @@ def quantization(img_in, n):
             v_min = np.amin(temp)
             
             q = (v_max - v_min) / 2**n
+            # print(q)
             
             temp = np.round(temp / q)
             
@@ -95,4 +96,4 @@ def quantization(img_in, n):
             
             x += 1
             
-    return np.float32(img_out)
+    return np.float32(img_out)                

@@ -40,16 +40,36 @@ def display_video(video, rate):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     
-def DCPM_encoder(vid, sel):
+def DCPM_encoder(vid, pre, sel):
+    
+    vid_dpcm = vid.copy()
     
     if(sel == 1):
         
+        for i in range(1, len(vid)): 
+            temp = pre[i-1]
+            vid_dpcm[i,:,1:] = temp[:,0:len(vid[i,0])-1]
     elif(sel == 2):
-    
+        
+        for i in range(1, len(vid)): 
+            temp = pre[i-1]
+            vid_dpcm[i,1:,:] = temp[0:len(vid[i])-1,:]
+            
     elif(sel == 3):
-    
+        
+        for i in range(1, len(vid)): 
+            temp = pre[i-1]
+            vid_dpcm[i,1:,1:] = temp[0:len(vid[i])-1,0:len(vid[i,0])-1]
+            
     elif(sel == 4):
-    
+        for i in range(1, len(vid)): 
+            temp = pre[i-1]
+            for x in range(1, len(temp)):
+                for y in range(1, len(temp)-1):
+                        # A + B - C
+                        vid_dpcm[i,x,y] = temp[x-1,y] + temp[x, y-1] - temp[x-1,y-1]
     else:
         print("Incorrect Selection Value. Please Select Integer Value in range 1-4")
         return 0
+    
+    return vid_dpcm

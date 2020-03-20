@@ -22,3 +22,21 @@ def display_multiple_images(img):
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
+def colormap(img):
+    
+    plt.style.use('classic')
+    plt.imshow(img)
+    plt.colorbar();
+    
+    # d = 70
+    
+    # plt.figure(figsize=(len(img),len(img[0])), dpi=d )
+    
+    # color_map = plt.imshow(img)
+    # color_map.set_cmap("Blues_r")
+    
+    # plt.colorbar()
+    # plt.show()
+    
+    # plt.savefig("colormap.png")
