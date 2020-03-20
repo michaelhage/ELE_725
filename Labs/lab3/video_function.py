@@ -35,4 +35,21 @@ def display_video(video, rate):
     
     for i in range(0, len(video)):
         cv2.imshow("Frame: " + str(i+1),video[i])
-        key = cv2.waitKey(rate)
+        # key = cv2.waitKey(rate)
+    
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    
+def DCPM_encoder(vid, sel):
+    
+    if(sel == 1):
+        
+    elif(sel == 2):
+    
+    elif(sel == 3):
+    
+    elif(sel == 4):
+    
+    else:
+        print("Incorrect Selection Value. Please Select Integer Value in range 1-4")
+        return 0

@@ -10,6 +10,7 @@ import cv2
 import display_functions as df
 import dct_function as dct
 import video_function as vf
+import entropy as en
 
 img1 = cv2.imread("MikeySpiece_square.png",0)
 img2 = cv2.imread("MikeySpiece.png",0)
@@ -112,6 +113,38 @@ df.display_multiple_images([img, img_quant])
 # Part 2 - Inter-Frame Coding
 
 video = cv2.VideoCapture("stephen.gif")
-f = 2
+rate = video.get(5)
 
+# Question 1
+
+# Extract 2 frames
+f = 2
 vid = vf.frame_extract(video, f)
+
+vf.display_video(vid, int(rate / 5))
+
+# Difference Frame of both frames
+frame_diff = vid[1] - vid[0]
+
+# Display Difference Frame
+df.display_image(frame_diff)
+
+# Question 2
+
+# Extract Frames
+f = 11
+vid = vf.frame_extract(video, f)
+video.release()
+
+frame_diff = []
+entropy = []
+
+for i in range(0, f-1):
+    frame_diff.append(vid[i + 1] - vid [i])
+    stats, ent = en.myEntropy(frame_diff[i])
+    entropy.append(ent)
+    
+# Question 3
+
+# Question 4
+
